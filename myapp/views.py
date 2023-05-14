@@ -2,7 +2,6 @@
 
 
 from rest_framework import generics, viewsets
-from .serializers import UserSerializer, UserLoginSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
@@ -10,6 +9,8 @@ from rest_framework.views import APIView
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+
+from .serializers import UserSerializer, UserLoginSerializer
 from .models import MyUser
 from .serializers import MyUserSerializer
 
@@ -25,7 +26,7 @@ class LoginAPIView(APIView):
     API view to Login User
     """
 
-    # overinding the POST method
+    # overiding the POST method
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid():
@@ -45,7 +46,7 @@ class UserLogoutAPIView(APIView):
     API view to logout user
     """
 
-    # Here we are defining that user should by LOGGED IN (IsAuthenticated,) and ACCEPT the Token get he gets when he Logged in.    
+    # Here we are defining that user should by LOGGED IN (IsAuthenticated,) and ACCEPT the Token that he gets when he Logged in.    
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
